@@ -9,12 +9,3 @@ export function bnPrice(value: number | string) {
 export function bnPercent(value: number | string) {
   return `${bnNumber(value)}%`;
 }
-
-export function getTodayDate() {
-  return new Date().toLocaleDateString("bn-BD", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}

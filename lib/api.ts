@@ -1,3 +1,5 @@
+"use cache";
+
 const BASE_URL =
   "https://api.api-store.workers.dev/api/bazardor";
 

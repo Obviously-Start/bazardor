@@ -2,63 +2,91 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import { Category } from "@/lib/types";
-import { getTodayDate } from "@/lib/bn";
 
 type NavbarProps = {
   categories: Category[];
 };
 
-export default function Navbar({ categories }: NavbarProps) {
+export default function Navbar({
+  categories,
+}: NavbarProps) {
   const pathname = usePathname();
 
+  const [today, setToday] = useState("");
+
+  useEffect(() => {
+    const date = new Date();
+
+    const formattedDate = date.toLocaleDateString(
+      "bn-BD",
+      {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }
+    );
+
+    setToday(formattedDate);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b bg-base-100/95 backdrop-blur">
-      <div className="mx-auto max-w-7xl px-4">
+    <header className="border-b border-base-300 bg-base-100">
+      <div className="mx-auto max-w-6xl px-4">
 
         {/* Top Navbar */}
-        <div className="flex min-h-20 items-center justify-between gap-4">
+        <div className="flex min-h-16 items-center justify-between">
 
-          {/* Logo */}
-          <Link href="/" className="shrink-0">
-            <div className="text-xl font-bold sm:text-2xl">
-              🛒 বাজার দর
+          {/* Logo + Date */}
+          <Link href="/" className="flex items-center gap-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-success text-lg">
+              🛒
             </div>
 
-            <div className="mt-1 text-xs text-base-content/60">
-              {getTodayDate()}
+            <div>
+              <h1 className="text-base font-bold">
+                বাজার দর
+              </h1>
+
+              <p className="text-[9px] text-base-content/50">
+                {today || "আজকের বাজার দর"}
+              </p>
             </div>
           </Link>
 
-          {/* Auth Buttons */}
+          {/* Auth */}
           <div className="flex items-center gap-2">
             <Link
               href="/signin"
-              className="btn btn-sm btn-outline"
+              className="btn btn-ghost btn-xs hidden sm:flex"
             >
               Sign In
             </Link>
 
             <Link
               href="/signup"
-              className="btn btn-sm btn-primary"
+              className="btn btn-success btn-xs"
             >
               Sign Up
             </Link>
           </div>
         </div>
 
-        {/* Category Navigation */}
-        <nav className="flex gap-2 overflow-x-auto pb-3 scrollbar-hide">
+        {/* Categories */}
+        <nav className="flex gap-1 overflow-x-auto pb-2">
+
           <Link
             href="/"
-            className={`btn btn-sm whitespace-nowrap ${
+            className={`btn btn-xs whitespace-nowrap ${
               pathname === "/"
-                ? "btn-primary"
+                ? "btn-success"
                 : "btn-ghost"
             }`}
           >
-            🏠 সব পণ্য
+            🏠 সব
           </Link>
 
           {categories.map((category) => {
@@ -69,9 +97,9 @@ export default function Navbar({ categories }: NavbarProps) {
               <Link
                 key={category.id}
                 href={`/category/${category.slug}`}
-                className={`btn btn-sm whitespace-nowrap ${
+                className={`btn btn-xs whitespace-nowrap ${
                   active
-                    ? "btn-primary"
+                    ? "btn-success"
                     : "btn-ghost"
                 }`}
               >
@@ -79,6 +107,7 @@ export default function Navbar({ categories }: NavbarProps) {
               </Link>
             );
           })}
+
         </nav>
       </div>
     </header>

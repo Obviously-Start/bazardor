@@ -1,56 +1,70 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
-  return (
-    <section className="bg-base-200 px-4 py-6 md:py-8">
-      <div className="mx-auto flex max-w-6xl items-center justify-between overflow-hidden rounded-3xl border border-base-300 bg-base-100 px-6 py-8 shadow-sm md:px-10 md:py-10">
+  const [today, setToday] = useState("");
 
-        {/* Left Side */}
+  useEffect(() => {
+    const date = new Date();
+
+    const formattedDate = date.toLocaleDateString(
+      "bn-BD",
+      {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }
+    );
+
+    setToday(formattedDate);
+  }, []);
+
+  return (
+    <section className="px-4 py-5">
+      <div className="mx-auto flex max-w-6xl items-center justify-between overflow-hidden rounded-2xl border border-base-300 bg-base-100 px-5 py-5 shadow-sm sm:px-7 md:py-6">
+
         <div className="max-w-2xl">
 
           {/* Date */}
-          <span className="inline-block rounded-full bg-success/10 px-4 py-2 text-sm font-medium text-success">
-            সোমবার, ৬ অক্টোবর, ২০২৬
+          <span className="inline-block rounded-full bg-success/10 px-3 py-1 text-[10px] font-semibold text-success">
+            {today || "আজকের বাজার দর"}
           </span>
 
           {/* Heading */}
-          <h1 className="mt-4 text-3xl font-bold leading-tight text-base-content md:text-5xl">
+          <h1 className="mt-3 text-2xl font-bold leading-tight sm:text-3xl">
             আজকের বাজারের দাম এক নজরে
           </h1>
 
           {/* Description */}
-          <p className="mt-4 max-w-xl text-sm leading-6 text-base-content/60 md:text-base">
-            চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার দাম —
-            বাজারদরটি দেখুন সহজভাবে, দ্রুত এবং নির্ভরযোগ্যভাবে।
+          <p className="mt-3 max-w-xl text-xs leading-5 text-base-content/60 sm:text-sm">
+            চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার
+            দাম — বাজারভিত্তিক বিভিন্ন পণ্যের আজকের
+            সর্বশেষ বাজারদর এক জায়গায়।
           </p>
 
           {/* Button */}
           <Link
             href="#সব-পণ্য"
-            className="btn btn-success mt-6"
+            className="btn btn-success btn-sm mt-4 text-xs"
           >
             সব পণ্য দেখুন
           </Link>
 
         </div>
 
-        {/* Right Side */}
-        <div className="hidden shrink-0 md:block">
-          <div className="flex h-48 w-56 items-end justify-center">
-
-            {/* Fruits */}
-            <div className="absolute -translate-y-16 text-6xl">
-              🍎 🍊
-            </div>
-
-            {/* Basket */}
-            <div className="relative">
-              <div className="text-8xl">
-                🧺
-              </div>
-            </div>
-
-          </div>
+        {/* Hero Image */}
+        <div className="hidden shrink-0 sm:block">
+          <Image
+            src="/bazar-hero.png"
+            alt="বাজারের পণ্য"
+            width={190}
+            height={160}
+            priority
+          />
         </div>
 
       </div>
