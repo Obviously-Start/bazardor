@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+
 import "./globals.css";
 
 import Navbar from "@/components/Navbar";
@@ -9,7 +11,8 @@ import { Category, Product } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "বাজার দর",
-  description: "বাংলাদেশের নিত্যপ্রয়োজনীয় পণ্যের আজকের দাম",
+  description:
+    "বাংলাদেশের নিত্যপ্রয়োজনীয় পণ্যের আজকের দাম",
 };
 
 export default async function RootLayout({
@@ -23,7 +26,13 @@ export default async function RootLayout({
   return (
     <html lang="bn">
       <body>
-        <Navbar categories={categories} />
+        <Suspense
+          fallback={
+            <div className="h-16 border-b border-base-300 bg-base-100" />
+          }
+        >
+          <Navbar categories={categories} />
+        </Suspense>
 
         <Ticker products={products} />
 

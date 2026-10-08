@@ -37,10 +37,9 @@ export default function Navbar({
     <header className="border-b border-base-300 bg-base-100">
       <div className="mx-auto max-w-6xl px-4">
 
-        {/* Top Navbar */}
         <div className="flex min-h-16 items-center justify-between">
 
-          {/* Logo + Date */}
+          
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-success text-lg">
               🛒
@@ -57,7 +56,7 @@ export default function Navbar({
             </div>
           </Link>
 
-          {/* Auth */}
+          
           <div className="flex items-center gap-2">
             <Link
               href="/signin"
@@ -75,7 +74,6 @@ export default function Navbar({
           </div>
         </div>
 
-        {/* Categories */}
         <nav className="flex gap-1 overflow-x-auto pb-2">
 
           <Link

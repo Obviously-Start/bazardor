@@ -29,24 +29,24 @@ export default function Hero() {
 
         <div className="max-w-2xl">
 
-          {/* Date */}
+          
           <span className="inline-block rounded-full bg-success/10 px-3 py-1 text-[10px] font-semibold text-success">
             {today || "আজকের বাজার দর"}
           </span>
 
-          {/* Heading */}
+          
           <h1 className="mt-3 text-2xl font-bold leading-tight sm:text-3xl">
             আজকের বাজারের দাম এক নজরে
           </h1>
 
-          {/* Description */}
+        
           <p className="mt-3 max-w-xl text-xs leading-5 text-base-content/60 sm:text-sm">
             চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার
             দাম — বাজারভিত্তিক বিভিন্ন পণ্যের আজকের
             সর্বশেষ বাজারদর এক জায়গায়।
           </p>
 
-          {/* Button */}
+        
           <Link
             href="#সব-পণ্য"
             className="btn btn-success btn-sm mt-4 text-xs"
@@ -56,7 +56,6 @@ export default function Hero() {
 
         </div>
 
-        {/* Hero Image */}
         <div className="hidden shrink-0 sm:block">
           <Image
             src="/bazar-hero.png"
