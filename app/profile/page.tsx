@@ -23,7 +23,7 @@ export default function ProfilePage() {
     }
   }, [isPending, session, router]);
 
-  // Sign out
+ 
   async function handleSignOut() {
     setSigningOut(true);
 

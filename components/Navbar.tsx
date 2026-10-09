@@ -32,7 +32,7 @@ export default function Navbar({
     isPending,
   } = authClient.useSession();
 
-  // Today's date
+  
   useEffect(() => {
     const date = new Date();
 
@@ -47,7 +47,7 @@ export default function Navbar({
     setToday(formattedDate);
   }, []);
 
-  // Close dropdown outside click
+  
   useEffect(() => {
     function handleClickOutside(
       event: MouseEvent
@@ -75,7 +75,7 @@ export default function Navbar({
     };
   }, []);
 
-  // Sign out
+
   async function handleSignOut() {
     await authClient.signOut();
 
@@ -90,10 +90,10 @@ export default function Navbar({
 
       <div className="mx-auto max-w-6xl px-4">
 
-        {/* Top Navbar */}
+       
         <div className="flex min-h-16 items-center justify-between">
 
-          {/* Logo */}
+          
           <Link
             href="/"
             className="flex items-center gap-2"
@@ -117,7 +117,7 @@ export default function Navbar({
 
           </Link>
 
-          {/* Right Side */}
+         
           <div
             className="relative"
             ref={menuRef}
@@ -127,10 +127,9 @@ export default function Navbar({
               <span className="loading loading-spinner loading-sm" />
             ) : session?.user ? (
 
-              /* Logged In */
+              
               <div>
 
-                {/* User Button */}
                 <button
                   type="button"
                   onClick={() =>
@@ -139,7 +138,7 @@ export default function Navbar({
                   className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-base-200"
                 >
 
-                  {/* Profile Picture */}
+                
                   <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-[#eef3ef]">
 
                     {session.user.image ? (
@@ -159,12 +158,12 @@ export default function Navbar({
 
                   </div>
 
-                  {/* User Name */}
+               
                   <span className="hidden text-xs font-medium sm:block">
                     {session.user.name}
                   </span>
 
-                  {/* Arrow */}
+              
                   <span
                     className={`text-[9px] transition-transform ${
                       menuOpen
@@ -177,16 +176,16 @@ export default function Navbar({
 
                 </button>
 
-                {/* Dropdown */}
+              
                 {menuOpen && (
                   <div className="absolute right-0 top-12 z-50 w-56 rounded-xl border border-base-300 bg-white p-2 shadow-lg">
 
-                    {/* User Info */}
+                   
                     <div className="border-b border-base-200 px-3 py-2">
 
                       <div className="flex items-center gap-3">
 
-                        {/* Larger Picture */}
+                      
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#eef3ef]">
 
                           {session.user.image ? (
@@ -222,7 +221,7 @@ export default function Navbar({
 
                     </div>
 
-                    {/* Profile */}
+                   
                     <Link
                       href="/profile"
                       onClick={() =>
@@ -237,7 +236,7 @@ export default function Navbar({
                       </span>
                     </Link>
 
-                    {/* Sign Out */}
+                    
                     <button
                       type="button"
                       onClick={handleSignOut}
@@ -257,7 +256,7 @@ export default function Navbar({
 
             ) : (
 
-              /* Logged Out */
+              
               <div className="flex items-center gap-2">
 
                 <Link
@@ -282,7 +281,7 @@ export default function Navbar({
 
         </div>
 
-        {/* Categories */}
+       
         <nav className="flex gap-1 overflow-x-auto pb-2">
 
           <Link

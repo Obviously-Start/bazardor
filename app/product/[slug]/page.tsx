@@ -16,26 +16,26 @@ type ProductPageProps = {
 export default async function ProductPage({
   params,
 }: ProductPageProps) {
-  // Get the product slug from the URL
+  
   const { slug } = await params;
 
-  // Check the user's login session on the server
+ 
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  // Redirect users who are not logged in
+ 
   if (!session) {
     redirect("/signin");
   }
 
-  // Fetch all products
+ 
   const products: Product[] = await getProducts();
 
-  // Find the requested product
+ 
   const product = products.find((item) => item.slug === slug);
 
-  // Show 404 if the product does not exist
+  
   if (!product) {
     notFound();
   }
@@ -43,13 +43,13 @@ export default async function ProductPage({
   const isUp = product.change.dir === "up";
   const isDown = product.change.dir === "down";
 
-  // Calculate the average price for each market
+  
   const marketPrices = product.markets.map((market) => ({
     ...market,
     average: (market.min + market.max) / 2,
   }));
 
-  // Calculate overall lowest and highest prices
+ 
   const lowestPrice = Math.min(
     ...product.markets.map((market) => market.min)
   );
@@ -65,7 +65,7 @@ export default async function ProductPage({
     <main className="min-h-screen bg-[#f3f8f4] px-3 py-5 sm:px-4 sm:py-6">
       <div className="mx-auto max-w-5xl">
 
-        {/* Breadcrumb */}
+        
         <nav
           aria-label="Breadcrumb"
           className="mb-4 flex flex-wrap items-center gap-2 text-xs text-base-content/60"
@@ -211,7 +211,7 @@ export default async function ProductPage({
               </p>
             </div>
 
-            {/* Average Price */}
+           
             <div className="rounded-xl border border-base-300 p-4">
               <p className="text-xs text-base-content/60">
                 গড় দাম
