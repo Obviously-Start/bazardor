@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-
+import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 
 export default function SignUpPage() {
@@ -21,19 +21,17 @@ export default function SignUpPage() {
   const [socialLoading, setSocialLoading] = useState<
     "google" | "github" | null
   >(null);
-  const [error, setError] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError("");
 
     if (password !== confirmPassword) {
-      setError("পাসওয়ার্ড দুটি একই নয়");
+      toast.error("পাসওয়ার্ড দুটি একই নয়");
       return;
     }
 
     if (password.length < 8) {
-      setError("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে");
+      toast.error("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে");
       return;
     }
 
@@ -47,7 +45,7 @@ export default function SignUpPage() {
       });
 
       if (result.error) {
-        setError(
+        toast.error(
           result.error.message ||
             result.error.code ||
             "অ্যাকাউন্ট তৈরি করা যায়নি"
@@ -55,17 +53,18 @@ export default function SignUpPage() {
         return;
       }
 
+      toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+
       router.push("/");
       router.refresh();
     } catch {
-      setError("সমস্যা হয়েছে। আবার চেষ্টা করো।");
+      toast.error("সমস্যা হয়েছে। আবার চেষ্টা করো।");
     } finally {
       setLoading(false);
     }
   }
 
   async function handleSocialSignIn(provider: "google" | "github") {
-    setError("");
     setSocialLoading(provider);
 
     try {
@@ -75,13 +74,13 @@ export default function SignUpPage() {
       });
 
       if (result.error) {
-        setError(
+        toast.error(
           result.error.message || `${provider} Login করা যায়নি`
         );
         setSocialLoading(null);
       }
     } catch {
-      setError(`${provider} Login শুরু করা যায়নি। আবার চেষ্টা করো।`);
+      toast.error(`${provider} Login শুরু করা যায়নি। আবার চেষ্টা করো।`);
       setSocialLoading(null);
     }
   }
@@ -102,9 +101,13 @@ export default function SignUpPage() {
         <div className="rounded-2xl border border-[#dce5de] bg-white p-6 shadow-sm sm:p-7">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="mb-2 block text-sm font-medium text-[#273129]">
+              <label
+                htmlFor="name"
+                className="mb-2 block text-sm font-medium text-[#273129]"
+              >
                 নাম
               </label>
+
               <input
                 id="name"
                 type="text"
@@ -112,14 +115,19 @@ export default function SignUpPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="input h-11 w-full rounded-lg border-[#dce5de] bg-white text-sm outline-none focus:border-success"
+                autoComplete="name"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="mb-2 block text-sm font-medium text-[#273129]">
+              <label
+                htmlFor="email"
+                className="mb-2 block text-sm font-medium text-[#273129]"
+              >
                 ইমেইল
               </label>
+
               <input
                 id="email"
                 type="email"
@@ -127,14 +135,19 @@ export default function SignUpPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="input h-11 w-full rounded-lg border-[#dce5de] bg-white text-sm outline-none focus:border-success"
+                autoComplete="email"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="mb-2 block text-sm font-medium text-[#273129]">
+              <label
+                htmlFor="password"
+                className="mb-2 block text-sm font-medium text-[#273129]"
+              >
                 পাসওয়ার্ড
               </label>
+
               <input
                 id="password"
                 type="password"
@@ -142,15 +155,20 @@ export default function SignUpPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="input h-11 w-full rounded-lg border-[#dce5de] bg-white text-sm outline-none focus:border-success"
+                autoComplete="new-password"
                 minLength={8}
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="mb-2 block text-sm font-medium text-[#273129]">
+              <label
+                htmlFor="confirmPassword"
+                className="mb-2 block text-sm font-medium text-[#273129]"
+              >
                 পাসওয়ার্ড নিশ্চিত করুন
               </label>
+
               <input
                 id="confirmPassword"
                 type="password"
@@ -158,21 +176,16 @@ export default function SignUpPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="input h-11 w-full rounded-lg border-[#dce5de] bg-white text-sm outline-none focus:border-success"
+                autoComplete="new-password"
                 minLength={8}
                 required
               />
             </div>
 
-            {error && (
-              <div role="alert" className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
-                {error}
-              </div>
-            )}
-
             <button
               type="submit"
               disabled={loading || socialLoading !== null}
-              className="btn h-11 min-h-11 w-full rounded-lg border-0 bg-[#008f3d] text-sm font-semibold text-white hover:bg-[#007b35]"
+              className="btn h-11 min-h-11 w-full rounded-lg border-0 bg-[#008f3d] text-sm font-semibold text-white hover:bg-[#007b35] disabled:opacity-60"
             >
               {loading ? "অ্যাকাউন্ট তৈরি হচ্ছে..." : "অ্যাকাউন্ট তৈরি করুন"}
             </button>
@@ -212,14 +225,20 @@ export default function SignUpPage() {
 
           <p className="mt-5 text-center text-xs text-[#68716b]">
             অ্যাকাউন্ট আছে?{" "}
-            <Link href="/signin" className="font-semibold text-[#008f3d] hover:underline">
+            <Link
+              href="/signin"
+              className="font-semibold text-[#008f3d] hover:underline"
+            >
               সাইন ইন করুন
             </Link>
           </p>
         </div>
 
         <div className="mt-6 text-center">
-          <Link href="/" className="text-xs text-[#7b837d] hover:text-[#008f3d]">
+          <Link
+            href="/"
+            className="text-xs text-[#7b837d] hover:text-[#008f3d]"
+          >
             ← হোম পেজে ফিরে যান
           </Link>
         </div>

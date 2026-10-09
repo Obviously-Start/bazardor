@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 import { authClient } from "@/lib/auth-client";
 
@@ -19,11 +20,9 @@ export default function SignInPage() {
   const [socialLoading, setSocialLoading] = useState<
     "google" | "github" | null
   >(null);
-  const [error, setError] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError("");
     setLoading(true);
 
     try {
@@ -33,7 +32,7 @@ export default function SignInPage() {
       });
 
       if (result.error) {
-        setError(
+        toast.error(
           result.error.message ||
             result.error.code ||
             "সাইন ইন করা যায়নি"
@@ -41,17 +40,19 @@ export default function SignInPage() {
         return;
       }
 
+      toast.success("সফলভাবে সাইন ইন হয়েছে!");
       router.push("/");
       router.refresh();
     } catch {
-      setError("সমস্যা হয়েছে। আবার চেষ্টা করো।");
+      toast.error("সমস্যা হয়েছে। আবার চেষ্টা করো।");
     } finally {
       setLoading(false);
     }
   }
 
-  async function handleSocialSignIn(provider: "google" | "github") {
-    setError("");
+  async function handleSocialSignIn(
+    provider: "google" | "github"
+  ) {
     setSocialLoading(provider);
 
     try {
@@ -61,13 +62,16 @@ export default function SignInPage() {
       });
 
       if (result.error) {
-        setError(
-          result.error.message || `${provider} Login করা যায়নি`
+        toast.error(
+          result.error.message ||
+            `${provider} Login করা যায়নি`
         );
         setSocialLoading(null);
       }
     } catch {
-      setError(`${provider} Login শুরু করা যায়নি। আবার চেষ্টা করো।`);
+      toast.error(
+        `${provider} Login শুরু করা যায়নি। আবার চেষ্টা করো।`
+      );
       setSocialLoading(null);
     }
   }
@@ -88,9 +92,13 @@ export default function SignInPage() {
         <div className="rounded-2xl border border-[#dce5de] bg-white p-6 shadow-sm sm:p-7">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="email" className="mb-2 block text-sm font-medium text-[#273129]">
+              <label
+                htmlFor="email"
+                className="mb-2 block text-sm font-medium text-[#273129]"
+              >
                 ইমেইল
               </label>
+
               <input
                 id="email"
                 type="email"
@@ -98,14 +106,19 @@ export default function SignInPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="input h-11 w-full rounded-lg border-[#dce5de] bg-white text-sm outline-none focus:border-success"
+                autoComplete="email"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="mb-2 block text-sm font-medium text-[#273129]">
+              <label
+                htmlFor="password"
+                className="mb-2 block text-sm font-medium text-[#273129]"
+              >
                 পাসওয়ার্ড
               </label>
+
               <input
                 id="password"
                 type="password"
@@ -113,20 +126,15 @@ export default function SignInPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="input h-11 w-full rounded-lg border-[#dce5de] bg-white text-sm outline-none focus:border-success"
+                autoComplete="current-password"
                 required
               />
             </div>
 
-            {error && (
-              <div role="alert" className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
-                {error}
-              </div>
-            )}
-
             <button
               type="submit"
               disabled={loading || socialLoading !== null}
-              className="btn h-11 min-h-11 w-full rounded-lg border-0 bg-[#008f3d] text-sm font-semibold text-white hover:bg-[#007b35]"
+              className="btn h-11 min-h-11 w-full rounded-lg border-0 bg-[#008f3d] text-sm font-semibold text-white hover:bg-[#007b35] disabled:opacity-60"
             >
               {loading ? "সাইন ইন হচ্ছে..." : "সাইন ইন"}
             </button>
@@ -166,14 +174,20 @@ export default function SignInPage() {
 
           <p className="mt-5 text-center text-xs text-[#68716b]">
             অ্যাকাউন্ট নেই?{" "}
-            <Link href="/signup" className="font-semibold text-[#008f3d] hover:underline">
+            <Link
+              href="/signup"
+              className="font-semibold text-[#008f3d] hover:underline"
+            >
               সাইন আপ করুন
             </Link>
           </p>
         </div>
 
         <div className="mt-6 text-center">
-          <Link href="/" className="text-xs text-[#7b837d] hover:text-[#008f3d]">
+          <Link
+            href="/"
+            className="text-xs text-[#7b837d] hover:text-[#008f3d]"
+          >
             ← হোম পেজে ফিরে যান
           </Link>
         </div>
@@ -181,4 +195,3 @@ export default function SignInPage() {
     </main>
   );
 }
-
