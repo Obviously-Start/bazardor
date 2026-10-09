@@ -9,7 +9,7 @@ export default function ChangeBadge({
 }: ChangeBadgeProps) {
   if (dir === "up") {
     return (
-      <span className="badge badge-success gap-1">
+      <span className="badge badge-success">
         ▲ {pct}%
       </span>
     );
@@ -17,7 +17,7 @@ export default function ChangeBadge({
 
   if (dir === "down") {
     return (
-      <span className="badge badge-error gap-1">
+      <span className="badge badge-error">
         ▼ {pct}%
       </span>
     );

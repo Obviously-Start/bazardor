@@ -3,7 +3,6 @@ export default function Loading() {
     <main className="min-h-screen bg-[#f3f8f4] px-4 py-5">
       <div className="mx-auto max-w-6xl">
 
-        {/* Category Header Skeleton */}
         <div className="rounded-xl border border-base-300 bg-base-100 p-5">
           <div className="flex items-center gap-3">
 
@@ -17,7 +16,6 @@ export default function Loading() {
           </div>
         </div>
 
-        {/* Product Skeleton */}
         <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
             <div

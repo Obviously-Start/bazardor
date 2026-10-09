@@ -59,7 +59,7 @@ export default async function CategoryPage({
           </div>
         </section>
 
-        {/* Products */}
+       
         <section className="mt-4">
           <CategoryProducts
             products={categoryProducts}

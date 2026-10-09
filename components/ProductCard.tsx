@@ -17,7 +17,6 @@ export default function ProductCard({
       href={`/product/${product.slug}`}
       className="block rounded-xl border border-base-300 bg-base-100 p-3 transition hover:-translate-y-0.5 hover:shadow-md"
     >
-      {/* Product */}
       <div className="flex items-center gap-3">
 
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-base-200 text-2xl">
@@ -36,10 +35,9 @@ export default function ProductCard({
 
       </div>
 
-      {/* Price + Change */}
+      
       <div className="mt-3 flex items-end justify-between">
 
-        {/* Price */}
         <div>
           <p className="text-[10px] text-base-content/50">
             আজকের দাম
@@ -50,7 +48,7 @@ export default function ProductCard({
           </p>
         </div>
 
-        {/* Change Badge */}
+       
         <span
           className={`rounded-full px-2 py-1 text-[10px] font-semibold ${
             isUp

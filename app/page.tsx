@@ -19,10 +19,9 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-[#f3f8f4]">
-      {/* Hero */}
+    
       <Hero />
 
-      {/* Rising Products */}
       <section className="px-4 py-5">
         <div className="mx-auto max-w-6xl">
           <div className="mb-3 flex items-center gap-2">
@@ -44,7 +43,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Falling Products */}
       <section className="px-4 py-5">
         <div className="mx-auto max-w-6xl">
           <div className="mb-3 flex items-center gap-2">
@@ -66,7 +64,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* All Products */}
+      
+
       <section
         id="সব-পণ্য"
         className="px-4 py-5 pb-12"
