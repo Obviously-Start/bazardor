@@ -7,7 +7,7 @@ import { db, mongoClient } from "@/lib/mongodb";
 export const auth = betterAuth({
   trustedOrigins: [
     "http://localhost:3000",
-    "https://bazardorass.netlify.app",
+    "https://bazardorperson.netlify.app",
   ],
 
   database: mongodbAdapter(db, {
