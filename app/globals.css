@@ -1,7 +1,9 @@
+
 @import "tailwindcss";
 @plugin "daisyui";
 
 :root {
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -19,6 +21,7 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
 @keyframes ticker {
   from {
     transform: translateX(0);
@@ -26,5 +29,21 @@ body {
 
   to {
     transform: translateX(-50%);
+  }
+}
+
+
+input,
+textarea,
+select {
+  color: #171717;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
